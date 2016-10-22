@@ -64,8 +64,6 @@ class AddmetoBot(telepot.Bot):
             if not self.stickers.push((chat_id, from_id), ts):
                 self.reply(msg, 'Стикероспам')
                 
-        print(msg, self.messages.queues)
-        
     def reply(self, msg, text):
         self.sendMessage(msg['chat']['id'], text, reply_to_message_id=msg['message_id'])
         
