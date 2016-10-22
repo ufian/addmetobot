@@ -46,7 +46,7 @@ class Limiter(object):
 class AddmetoBot(telepot.Bot):
     def __init__(self, token):
         super(AddmetoBot, self).__init__(token)
-        self.messages = Limiter(4, 20)
+        self.messages = Limiter(8, 30)
         self.stickers = Limiter(3, 60*5)
         self.metas = Limiter(3, 60*15)
                 
