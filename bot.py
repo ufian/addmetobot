@@ -48,6 +48,8 @@ class AddmetoBot(telepot.Bot):
         super(AddmetoBot, self).__init__(token)
         self.messages = Limiter(4, 60)
         self.stickers = Limiter(3, 60)
+        self.metas = Limiter(3, 60)
+        self.photo = Limiter(3, 60)
                 
     def on_chat_message(self, msg):
         chat_id = msg.get('chat', {'id': None}).get('id')
@@ -64,6 +66,13 @@ class AddmetoBot(telepot.Bot):
             if not self.stickers.push((chat_id, from_id), ts):
                 self.reply(msg, 'Стикероспам')
                 
+        if any(key in msg for key in (
+                'audio', 'game', 'document', 'voice', 'contact', 'location','venue', 'video', 'photo'
+            )):
+            
+            if not self.metas.push((chat_id, from_id), ts):
+                self.reply(msg, 'Слишком много не того')
+        
     def reply(self, msg, text):
         self.sendMessage(msg['chat']['id'], text, reply_to_message_id=msg['message_id'])
         
