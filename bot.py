@@ -47,8 +47,8 @@ class AddmetoBot(telepot.Bot):
     def __init__(self, token):
         super(AddmetoBot, self).__init__(token)
         self.messages = Limiter(4, 20)
-        self.stickers = Limiter(3, 60)
-        self.metas = Limiter(3, 60)
+        self.stickers = Limiter(3, 60*5)
+        self.metas = Limiter(3, 60*15)
                 
     def on_chat_message(self, msg):
         chat_id = msg.get('chat', {'id': None}).get('id')
